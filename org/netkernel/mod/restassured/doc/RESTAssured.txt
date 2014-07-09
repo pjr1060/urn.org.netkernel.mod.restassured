@@ -1,0 +1,45 @@
+{endpoint}mod.restassured.RESTAssured{/endpoint}
+
+The RESTAssured runtime.  Implemented as a wrapper over the active:groovy runtime, this provides the REST-Assured DSL with no need for any configuration. 
+
+==operator==
+
+The DSL specification to execute.
+
+==Other Arguments==
+
+All additional arguments are relayed through to the DSL and can be accessed using the standard '''context''' object just as in any other groovy script.
+
+==Examples==
+
+This is an example of using active:RESTAssured in a unit test of a REST endpoint, notice that the result can be returned as the response.
+
+{xml}
+<request>
+	<identifier>active:RESTAssured</identifier>
+	<argument name="operator"><literal type="string">
+		s=get("http://localhost:8080/test/RESTAssured/foo").asString();
+		context.createResponseFrom(s)
+	</literal>
+	</argument>
+</request>
+{/xml}
+
+Here's a more complex example where a body argument is passed in, transrepted to binary stream and then set as the POST request body
+using a bytearray...
+
+{xml}
+<request>
+	<identifier>active:RESTAssured</identifier>
+	<argument name="body"><literal type="xml"><hello>World</hello></literal></argument>
+	<argument name="operator"><literal type="string">
+		import org.netkernel.layer0.representation.*
+		body = context.source("arg:body", IReadableBinaryStreamRepresentation.class);
+		baos=new ByteArrayOutputStream()
+		body.write(baos)
+		s=given().body(baos.toByteArray()).header("Content-Type", "text/xml").post("/test/RESTAssured/cn2").asString();
+		context.createResponseFrom(s)
+	</literal>
+	</argument>
+</request>
+{/xml}

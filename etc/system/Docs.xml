@@ -1,0 +1,20 @@
+<docs>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:guide</id>
+		<title>REST-assured</title>
+		<desc>Guide to the RESTAssured Library</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/guide.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:runtime</id>
+		<title>active:RESTAssured</title>
+		<desc>The RESTAssured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/RESTAssured.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:license</id>
+		<title>License</title>
+		<desc>Licensing information for the Image Util Library</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/license.txt</uri>
+	</doc>
+</docs>

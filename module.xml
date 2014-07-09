@@ -1,0 +1,50 @@
+<module version="2.0">
+	<meta>
+		<identity>
+			<uri>urn:org:netkernel:mod:restassured</uri>
+			<version>1.1.1</version>
+		</identity>
+		<info>
+			<name>DSL Runtime / REST-Assured</name>
+			<description>REST-Assured DSL runtime</description>
+			<!--<icon>res:/org/netkernel/rdf/jena/doc/icon.png</icon>-->
+		</info>
+	</meta>
+	<system>
+		<dynamic/>
+		<classloader>
+			<exports>
+				<match>com\.jayway\.restassured\..*</match>
+			</exports>
+		</classloader>
+	</system>
+	<rootspace>
+		<accessor>
+			<id>mod.restassured.RESTAssured</id>
+			<grammar>
+				<active>
+					<identifier>active:RESTAssured</identifier>
+					<argument name="operator"/>
+					<varargs/>
+				</active>
+			</grammar>
+			<class>org.netkernel.mod.restassured.RESTAssuredRuntime</class>
+		</accessor>
+		<import>
+			<private/>
+			<uri>urn:org:netkernel:lang:groovy</uri>
+		</import>
+		<import>
+			<private/>
+			<uri>urn:org:netkernel:ext:layer1</uri>
+		</import>
+	</rootspace>
+	<rootspace uri="urn:org:netkernel:mod:restassured::doc" public="true">
+		<fileset>
+			<regex>res:/etc/system/(Docs|Books).xml</regex>
+		</fileset>
+		<fileset>
+			<regex>res:/org/netkernel/mod/restassured/doc/.*</regex>
+		</fileset>
+	</rootspace>
+</module>

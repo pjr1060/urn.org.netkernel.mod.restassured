@@ -1,0 +1,18 @@
+<books>
+	<book>
+		<id>book:org:netkernel:mod:restassured:book</id>
+		<title>RESTAssured Library</title>
+		<desc>Documentation for the RESTAssured runtime library</desc>
+		<author></author>
+		<publisher></publisher>
+		<date></date>
+		<modified></modified>
+		<keywords></keywords>
+		<toc>
+			<item id="doc:org:netkernel:mod:restassured:guide"/>
+			<item id="doc:org:netkernel:mod:restassured:runtime"/>
+			<separator/>
+			<item id="doc:org:netkernel:mod:restassured:license"/>
+		</toc>
+	</book>
+</books>

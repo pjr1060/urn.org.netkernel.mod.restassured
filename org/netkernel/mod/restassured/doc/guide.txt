@@ -1,0 +1,11 @@
+=RESTAssured=
+
+This library contains a runtime providing the REST-Assured testing suite.
+
+==Usage Guide==
+
+A detailed usage guide for the REST-Assured DSL is provided [http://code.google.com/p/rest-assured/wiki/Usage|here]
+
+==Acknowledgements==
+
+This library is based on the [http://code.google.com/p/rest-assured/|REST-Assured Project].  Our grateful thanks to all those who contributed to the project.
