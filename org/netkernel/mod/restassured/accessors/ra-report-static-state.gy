@@ -1,0 +1,121 @@
+import com.jayway.restassured.authentication.BasicAuthScheme
+import com.jayway.restassured.authentication.FormAuthScheme
+import com.jayway.restassured.authentication.NoAuthScheme
+import com.jayway.restassured.authentication.OAuth2Scheme
+import com.jayway.restassured.authentication.OAuthScheme
+import org.netkernel.layer0.nkf.INKFRequest
+import org.netkernel.layer0.nkf.INKFRequestContext
+import com.jayway.restassured.RestAssured
+import org.netkernel.layer0.representation.impl.HDSBuilder
+
+INKFRequestContext context = context
+
+// See https://code.google.com/p/rest-assured/wiki/Usage#Default_values
+
+/*
+   arg:config will be returned like this:
+
+/ra-config
+    /baseURI : string
+    /port : int
+    /basePath : string
+    /rootPath : string
+    /authentication
+    	/none
+    	/basic
+    		/user : string
+    		/password : string
+    	/digest
+    		/user : string
+    		/password : string
+    	/oauth
+    		/consumerKey : string
+    		/consumerSecret : string
+    		/accessToken : string
+    		/secretToken : string
+    	/oauth2
+    		/accessToken : string
+    /requestContentType : string
+    /responseContentType : string
+    /urlEncodingEnabled : boolean
+    /xml-content-types
+        /xml-type : string
+    /json-content-types
+        /json-type : string
+    /text-content-types
+        /text-type : string
+*/
+
+def HDSBuilder builder = new HDSBuilder()
+
+builder.pushNode ("ra-config")
+
+// Set simple global vars
+builder.addNode ("baseURI", RestAssured.baseURI)
+builder.addNode ("port", "${RestAssured.port}".toString())
+builder.addNode ("basePath", RestAssured.basePath)
+builder.addNode ("rootPath", RestAssured.rootPath)
+builder.addNode ("urlEncodingEnabled", RestAssured.urlEncodingEnabled)
+
+// Call global getter functions
+builder.addNode ("requestContentType", RestAssured.requestContentType())
+builder.addNode ("responseContentType", RestAssured.responseContentType())
+
+// Authentication scheme
+builder.pushNode ("authentication")
+
+if ((RestAssured.authentication == null) ||
+	(RestAssured.authentication == RestAssured.DEFAULT_AUTH) ||
+	(RestAssured.authentication instanceof NoAuthScheme))
+{
+	builder.addNode ("none", null)
+}
+
+// digest is an alias for basic in RestAssured
+if (RestAssured.authentication instanceof BasicAuthScheme) {
+	BasicAuthScheme basic = RestAssured.authentication as BasicAuthScheme
+	builder.pushNode ("basic", null)
+	builder.addNode ("userName", basic.getUserName())
+	builder.addNode ("password", basic.getPassword ())
+	builder.popNode()
+}
+
+// digest is an alias for basic in RestAssured
+if (RestAssured.authentication instanceof FormAuthScheme) {
+	FormAuthScheme form = RestAssured.authentication as FormAuthScheme
+	builder.pushNode ("basic", null)
+	builder.addNode ("userName", form.getUserName())
+	builder.addNode ("password", form.getPassword())
+	builder.popNode()
+}
+
+// We only cope with simple string-arg OAuth 1
+if (RestAssured.authentication instanceof OAuthScheme) {
+	OAuthScheme oauth = RestAssured.authentication as OAuthScheme
+	builder.pushNode ("oauth", null)
+	builder.addNode ("consumerKey", oauth.getConsumerKey())
+	builder.addNode ("consumerSecret", oauth.getConsumerSecret())
+	builder.addNode ("accessToken", oauth.getAccessToken())
+	builder.addNode ("secretToken", oauth.getSecretToken())
+	builder.popNode()
+}
+
+// We only cope with simple string-arg OAuth
+if (RestAssured.authentication instanceof OAuth2Scheme) {
+	OAuth2Scheme oauth = RestAssured.authentication as OAuth2Scheme
+	builder.pushNode ("oauth2", null)
+	builder.addNode ("accessToken", oauth.getAccessToken())
+	builder.popNode()
+}
+
+builder.popNode()
+
+// Return constructed config.  Attach golden thread that can be snipped if config is changed or reset
+context.createResponseFrom (builder.getRoot())
+
+INKFRequest req = context.createRequest ("active:attachGoldenThread")
+req.addArgumentByValue ("id", RestAssured.getClass().getName())
+context.issueRequest (req)
+
+
+
