@@ -1,0 +1,28 @@
+import org.netkernel.layer0.nkf.INKFRequestContext
+import org.netkernel.layer0.representation.IHDSNode
+
+/*
+/xml-config
+    /namespace-aware
+    /namespaces
+        /namespace
+            /prefix
+            /uri
+        /namespace
+            /prefix
+            /uri
+ */
+
+
+INKFRequestContext context = context
+
+def IHDSNode xmlHds = context.source ("arg:config", IHDSNode.class)
+def IHDSNode config = xmlHds.getFirstNode ("/xml-config")
+
+def pdsId = 'pds:/RESTAssured/xml-config/persist'	// FixMe: Need to virtualize this
+
+context.sink (pdsId, config)
+
+context.createResponseFrom (null)
+
+

@@ -1,0 +1,61 @@
+import org.netkernel.layer0.nkf.INKFRequestContext
+import org.netkernel.layer0.representation.IHDSNode
+
+import com.jayway.restassured.config.RestAssuredConfig
+
+import static com.jayway.restassured.config.XmlConfig.xmlConfig
+
+
+/*
+/xml-config
+    /namespace-aware
+    /namespaces
+        /namespace
+            /prefix
+            /uri
+        /namespace
+            /prefix
+            /uri
+ */
+
+INKFRequestContext context = context
+
+def pdsId = 'pds:/RESTAssured/xml-config/persist'	// FixMe: Need to virtualize this
+
+
+def boolean nodeBooleanValue (IHDSNode config, String path, boolean defaultValue)
+{
+	try { Boolean.parseBoolean (config.getFirstValue (path) as String) } catch (Exception ignored) { defaultValue }
+}
+
+IHDSNode nsHds
+
+try {
+	nsHds = context.source (pdsId, IHDSNode.class)
+	context.createResponseFrom (nsHds)
+} catch (Exception ignored) {
+	context.delete (pdsId)
+	context.createResponseFrom (RestAssuredConfig.newConfig())
+	return
+}
+
+boolean nsAware = nodeBooleanValue (nsHds, "/xml-config/namespace-aware", false)
+
+// Setup a REST Assured XML configuration.  Start by creating a config object and
+// set the namespace-aware flag according to the config file setting.
+RestAssuredConfig config = RestAssuredConfig.newConfig().xmlConfig (
+	xmlConfig().namespaceAware (nsAware)
+)
+
+// Add each namespace binding to the config.  These literate calls return new objects, must re-assign config each time.
+nsHds.getNodes ("namespaces/namespace") each { IHDSNode binding ->
+	String prefix = binding.getFirstValue ("prefix") as String
+	String uri = binding.getFirstValue ("uri") as String
+
+	config = config.xmlConfig (config.getXmlConfig().declareNamespace (prefix, uri))
+}
+
+// The XML config object is returned, for use in REST Assured given() clauses
+context.createResponseFrom (config)
+
+

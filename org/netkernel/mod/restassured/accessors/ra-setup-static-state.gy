@@ -1,0 +1,129 @@
+import org.netkernel.layer0.nkf.INKFRequest
+import org.netkernel.layer0.nkf.INKFRequestContext
+import org.netkernel.layer0.nkf.INKFResponse
+import com.jayway.restassured.RestAssured
+import com.jayway.restassured.parsing.Parser
+import org.netkernel.layer0.representation.IHDSNode
+
+INKFRequestContext context = context
+
+// See https://code.google.com/p/rest-assured/wiki/Usage#Default_values
+
+/*
+   arg:config should look like this:
+
+/ra-config
+    /baseURI : string
+    /port : int
+    /basePath : string
+    /rootPath : string
+    /authentication
+    	/none
+    	/basic
+    		/user : string
+    		/password : string
+    	/digest
+    		/user : string
+    		/password : string
+    	/oauth
+    		/consumerKey : string
+    		/consumerSecret : string
+    		/accessToken : string
+    		/secretToken : string
+    	/oauth2
+    		/accessToken : string
+    /requestContentType : string
+    /responseContentType : string
+    /urlEncodingEnabled : boolean
+    /xml-content-types
+        /xml-type : string
+    /json-content-types
+        /json-type : string
+    /text-content-types
+        /text-type : string
+*/
+
+def String nodeStringValue (IHDSNode config, String path, String defaultValue)
+{
+	try { config.getFirstValue (path) } catch (Exception ignored) { defaultValue }
+}
+
+def String nodeStringValue (IHDSNode config, String path)
+{
+	nodeStringValue (config, path, null)
+}
+
+def int nodeIntValue (IHDSNode config, String path, int defaultValue)
+{
+	try { Integer.parseInt (config.getFirstValue (path) as String) } catch (Exception ignored) { defaultValue }
+}
+
+def boolean nodeBooleanValue (IHDSNode config, String path, boolean defaultValue)
+{
+	try { Boolean.parseBoolean (config.getFirstValue (path) as String) } catch (Exception ignored) { defaultValue }
+}
+
+def IHDSNode configHds = context.source ("arg:config", IHDSNode.class)
+def IHDSNode config = configHds.getFirstNode ("/ra-config")
+
+// Set simple global vars
+RestAssured.baseURI = nodeStringValue (config, "baseURI")
+RestAssured.port = nodeIntValue (config, "port", RestAssured.DEFAULT_PORT)
+RestAssured.basePath = nodeStringValue (config, "basePath")
+RestAssured.rootPath = nodeStringValue (config, "rootPath")
+RestAssured.authentication = nodeStringValue (config, "authentication")
+
+// Call global setter functions
+RestAssured.requestContentType (nodeStringValue (config, "requestContentType", null) as String)
+RestAssured.responseContentType (nodeStringValue (config, "responseContentType", null) as String)
+RestAssured.urlEncodingEnabled = nodeBooleanValue (config, "urlEncodingEnabled", RestAssured.DEFAULT_URL_ENCODING_ENABLED)
+
+// Handle authentication config
+IHDSNode auth = config.getFirstNode ("authentication")
+
+if (auth != null) {
+	if (auth.getFirstNode ("none") != null) {
+		RestAssured.authentication = RestAssured.DEFAULT_AUTH
+	}
+
+	if (auth.getFirstNode ("basic") != null) {
+		RestAssured.authentication = RestAssured.basic (nodeStringValue (auth, "basic/userName") as String, nodeStringValue (auth, "basic/password") as String)
+	}
+
+	if (auth.getFirstNode ("digest") != null) {
+		RestAssured.authentication = RestAssured.digest (nodeStringValue (auth, "digest/userName") as String, nodeStringValue (auth, "digest/password") as String)
+	}
+
+	if (auth.getFirstNode ("oauth") != null) {
+		RestAssured.authentication = RestAssured.oauth (nodeStringValue (auth, "oauth/consumerKey") as String, nodeStringValue (auth, "oauth/consumerSecret") as String,
+			nodeStringValue (auth, "oauth/accessToken") as String, nodeStringValue (auth, "oauth/secretToken") as String)
+	}
+
+	if (auth.getFirstNode ("oauth2") != null) {
+		RestAssured.authentication = RestAssured.oauth2 (nodeStringValue (auth, "oauth2/accessToken") as String)
+	}
+}
+
+
+// Register parsers for provided content types
+config.getValues ("xml-content-types/xml-type") each { String ct ->
+	RestAssured.registerParser (ct, Parser.XML)
+}
+
+config.getValues ("json-content-types/json-type") each { String ct ->
+	RestAssured.registerParser (ct, Parser.JSON)
+}
+
+config.getValues ("text-content-types/text-type") each { String ct ->
+	RestAssured.registerParser (ct, Parser.TEXT)
+}
+
+// Return null, and disallow caching since there are static object side effects from mutating the RestAssurred class static variables
+resp = context.createResponseFrom (null)
+resp.setExpiry (INKFResponse.EXPIRY_ALWAYS)
+
+// Cut golden thread, in case config has been cached
+INKFRequest request = context.createRequest ("active:cutGoldenThread");
+request.addArgumentByValue ("id", RestAssured.getClass().getName());
+context.issueRequest (request);
+
