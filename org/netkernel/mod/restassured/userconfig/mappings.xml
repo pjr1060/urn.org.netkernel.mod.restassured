@@ -16,7 +16,7 @@
 
 	<endpoint>
 		<verbs>SINK</verbs>
-		<id>urn:org:netkernel:mod:restassured:userconfig:config:set</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:config:put</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/config</identifier>
@@ -62,7 +62,7 @@
 
 	<endpoint>
 		<verbs>SINK</verbs>
-		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:set</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:put</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
