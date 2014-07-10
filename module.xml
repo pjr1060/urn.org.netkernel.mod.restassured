@@ -57,6 +57,12 @@
 			<regex>res:/org/netkernel/mod/restassured/accessors/.*</regex>
 		</fileset>
 		<import>
+			<uri>urn:org:netkernel:mod:pds</uri>
+		</import>
+		<import>
+			<uri>urn:org:netkernel:mod:pds:memory</uri>
+		</import>
+		<import>
 			<private/>
 			<uri>urn:org:netkernel:lang:groovy</uri>
 		</import>
@@ -64,6 +70,11 @@
 			<private/>
 			<uri>urn:org:netkernel:ext:layer1</uri>
 		</import>
+		<literal uri="res:/etc/pdsConfig.xml" type="xml">
+			<config>
+				<zone>iop:rest:httpstatemanager</zone>
+			</config>
+		</literal>
 	</rootspace>
 
 	<rootspace uri="urn:org:netkernel:mod:restassured::doc" public="true">

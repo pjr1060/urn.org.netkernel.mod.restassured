@@ -44,6 +44,66 @@
 		</request>
 	</endpoint>
 
+	<!-- ============================================================ -->
+
+	<endpoint>
+		<verbs>DELETE</verbs>
+		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:delete</id>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-delete-config.gy</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SINK</verbs>
+		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:set</id>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config</identifier>
+				<argument name="config"/>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-store-config.gy</argument>
+			<argument name="config">arg:config</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SOURCE</verbs>
+		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:get</id>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-fetch-config.gy</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SOURCE</verbs>
+		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:namespaces:get</id>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config/namespaces</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-namespaces.gy</argument>
+		</request>
+	</endpoint>
+
 </config>
 
 

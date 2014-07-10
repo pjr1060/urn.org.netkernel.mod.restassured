@@ -1,0 +1,11 @@
+import org.netkernel.layer0.nkf.INKFRequestContext
+
+INKFRequestContext context = context
+
+def pdsId = 'pds:/RESTAssured/xml-config/persist'	// FixMe: Need to virtualize this
+
+context.delete (pdsId)
+
+context.createResponseFrom (null)
+
+
