@@ -1,6 +1,6 @@
 =License=
 
-The NetKernel Barcode Utilities Library is licensed under the [http://www.1060research.com/license|1060 Public License v1.2].
+The NetKernel RESTAssured Library is licensed under the [http://www.1060research.com/license|1060 Public License v1.2].
 
 ==RESTAssured Library==
 

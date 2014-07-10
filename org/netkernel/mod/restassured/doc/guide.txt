@@ -8,4 +8,8 @@ A detailed usage guide for the REST-Assured DSL is provided [http://code.google.
 
 ==Acknowledgements==
 
-This library is based on the [http://code.google.com/p/rest-assured/|REST-Assured Project].  Our grateful thanks to all those who contributed to the project.
+This library is based on the [http://code.google.com/p/rest-assured/|REST-Assured Project]. Our grateful thanks to all
+those who contributed to the project.
+
+Thanks to Ron Hitchens of [http://www.overstory.co.uk|OverStory] for testing, documentation and discovering 
+the dark inner secrets of XML namespaces / configuration.
