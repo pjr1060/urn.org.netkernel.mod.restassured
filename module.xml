@@ -32,7 +32,7 @@
 			<class>org.netkernel.mod.restassured.RESTAssuredRuntime</class>
 		</accessor>
 		<import>
-			<uri>urn:org:netkernel:mod:restassured:accessors</uri>
+			<uri>urn:org:netkernel:mod:restassured:userconfig</uri>
 		</import>
 		<import>
 			<private/>
@@ -44,17 +44,17 @@
 		</import>
 	</rootspace>
 
-	<rootspace uri="urn:org:netkernel:mod:restassured:accessors" public="true">
+	<rootspace uri="urn:org:netkernel:mod:restassured:userconfig" public="true">
 		<mapper>
-			<config>res:/org/netkernel/mod/restassured/accessors/mappings.xml</config>
+			<config>res:/org/netkernel/mod/restassured/userconfig/mappings.xml</config>
 			<space>
 				<fileset>
-					<regex>res:/org/netkernel/mod/restassured/accessors/.*</regex>
+					<regex>res:/org/netkernel/mod/restassured/userconfig/.*</regex>
 				</fileset>
 			</space>
 		</mapper>
 		<fileset>
-			<regex>res:/org/netkernel/mod/restassured/accessors/.*</regex>
+			<regex>res:/org/netkernel/mod/restassured/userconfig/.*</regex>
 		</fileset>
 		<import>
 			<uri>urn:org:netkernel:mod:pds</uri>
@@ -72,7 +72,7 @@
 		</import>
 		<literal uri="res:/etc/pdsConfig.xml" type="xml">
 			<config>
-				<zone>iop:rest:httpstatemanager</zone>
+				<zone>urn:org:netkernel:mod:restassured:userconfig</zone>
 			</config>
 		</literal>
 	</rootspace>

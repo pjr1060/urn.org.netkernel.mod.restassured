@@ -2,7 +2,7 @@
 
 	<endpoint>
 		<verbs>DELETE</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:config:delete</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:config:delete</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/config</identifier>
@@ -10,13 +10,13 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/ra-reset-static-state.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-reset-static-state.gy</argument>
 		</request>
 	</endpoint>
 
 	<endpoint>
 		<verbs>SINK</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:config:set</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:config:set</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/config</identifier>
@@ -25,14 +25,14 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/ra-setup-static-state.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-setup-static-state.gy</argument>
 			<argument name="config">arg:config</argument>
 		</request>
 	</endpoint>
 
 	<endpoint>
 		<verbs>SOURCE</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:config:get</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:config:get</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/config</identifier>
@@ -40,7 +40,7 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/ra-report-static-state.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-report-static-state.gy</argument>
 		</request>
 	</endpoint>
 
@@ -48,7 +48,7 @@
 
 	<endpoint>
 		<verbs>DELETE</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:delete</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:delete</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
@@ -56,13 +56,13 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-delete-config.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-delete-config.gy</argument>
 		</request>
 	</endpoint>
 
 	<endpoint>
 		<verbs>SINK</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:set</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:set</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
@@ -71,14 +71,14 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-store-config.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-store-config.gy</argument>
 			<argument name="config">arg:config</argument>
 		</request>
 	</endpoint>
 
 	<endpoint>
 		<verbs>SOURCE</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:get</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:get</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
@@ -86,13 +86,13 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-fetch-config.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-fetch-config.gy</argument>
 		</request>
 	</endpoint>
 
 	<endpoint>
 		<verbs>SOURCE</verbs>
-		<id>urn:org:netkernel:mod:restassured:accessors:xml-config:namespaces:get</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:namespaces:get</id>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config/namespaces</identifier>
@@ -100,7 +100,7 @@
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
-			<argument name="operator">res:/org/netkernel/mod/restassured/accessors/xml-namespaces.gy</argument>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-namespaces.gy</argument>
 		</request>
 	</endpoint>
 
