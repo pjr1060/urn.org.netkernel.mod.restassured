@@ -2,6 +2,7 @@ import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.layer0.representation.IHDSNode
 
 import com.jayway.restassured.config.RestAssuredConfig
+import org.netkernel.layer0.representation.impl.HDSBuilder
 
 import static com.jayway.restassured.config.XmlConfig.xmlConfig
 
@@ -28,18 +29,24 @@ def boolean nodeBooleanValue (IHDSNode config, String path, boolean defaultValue
 	try { Boolean.parseBoolean (config.getFirstValue (path) as String) } catch (Exception ignored) { defaultValue }
 }
 
-IHDSNode nsHds
+IHDSNode xmlConfigHds
 
 try {
-	nsHds = context.source (pdsId, IHDSNode.class)
-	context.createResponseFrom (nsHds)
+	xmlConfigHds = context.source (pdsId, IHDSNode.class)
 } catch (Exception ignored) {
 	context.delete (pdsId)
-	context.createResponseFrom (RestAssuredConfig.newConfig())
+	HDSBuilder builder = new HDSBuilder()
+	builder.pushNode ("xml-config")
+	builder.addNode ("namespace-aware", "false")
+	xmlConfigHds = builder.getRoot()
+}
+
+if (context.getThisRequest().getRepresentationClass() == IHDSNode.class) {
+	context.createResponseFrom (xmlConfigHds)
 	return
 }
 
-boolean nsAware = nodeBooleanValue (nsHds, "/xml-config/namespace-aware", false)
+boolean nsAware = nodeBooleanValue (xmlConfigHds, "/xml-config/namespace-aware", false)
 
 // Setup a REST Assured XML configuration.  Start by creating a config object and
 // set the namespace-aware flag according to the config file setting.
@@ -48,7 +55,7 @@ RestAssuredConfig config = RestAssuredConfig.newConfig().xmlConfig (
 )
 
 // Add each namespace binding to the config.  These literate calls return new objects, must re-assign config each time.
-nsHds.getNodes ("namespaces/namespace") each { IHDSNode binding ->
+xmlConfigHds.getNodes ("namespaces/namespace") each { IHDSNode binding ->
 	String prefix = binding.getFirstValue ("prefix") as String
 	String uri = binding.getFirstValue ("uri") as String
 

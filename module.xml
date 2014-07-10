@@ -44,7 +44,7 @@
 		</import>
 	</rootspace>
 
-	<rootspace uri="urn:org:netkernel:mod:restassured:accessors" public="false">
+	<rootspace uri="urn:org:netkernel:mod:restassured:accessors" public="true">
 		<mapper>
 			<config>res:/org/netkernel/mod/restassured/accessors/mappings.xml</config>
 			<space>

@@ -1,5 +1,7 @@
 import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.layer0.representation.IHDSNode
+import org.netkernel.layer0.representation.impl.HDSBuilder
+
 import javax.xml.namespace.NamespaceContext
 
 
@@ -8,14 +10,19 @@ INKFRequestContext context = context
 def pdsId = 'pds:/RESTAssured/xml-config/persist'	// FixMe: Need to virtualize this
 
 SimpleNamespaceContext namespaces = new SimpleNamespaceContext()
+IHDSNode nsHds
 
 try {
-	nsHds = context.source (pdsId, IHDSNode.class)
-	context.createResponseFrom (nsHds)
+	nsHds = context.source (pdsId, IHDSNode.class).getFirstNode ("/xml-config/namespaces")
 } catch (Exception ignored) {
-	ignored.printStackTrace ()
 	context.delete (pdsId)
-	context.createResponseFrom (namespaces)
+	HDSBuilder builder = new HDSBuilder()
+	builder.pushNode ("namespaces")
+	nsHds = builder.getRoot()
+}
+
+if (context.getThisRequest().getRepresentationClass() == IHDSNode.class) {
+	context.createResponseFrom (nsHds)
 	return
 }
 
