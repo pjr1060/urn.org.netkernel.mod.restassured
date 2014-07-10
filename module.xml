@@ -7,7 +7,7 @@
 		<info>
 			<name>DSL Runtime / REST-Assured</name>
 			<description>REST-Assured DSL runtime</description>
-			<!--<icon>res:/org/netkernel/rdf/jena/doc/icon.png</icon>-->
+			<icon>res:/org/netkernel/mod/restassured/doc/icon.png</icon>
 		</info>
 	</meta>
 	<system>
@@ -42,9 +42,12 @@
 			<private/>
 			<uri>urn:org:netkernel:ext:layer1</uri>
 		</import>
+		<fileset>
+			<regex>res:/org/netkernel/mod/restassured/doc/.*</regex>
+		</fileset>
 	</rootspace>
 
-	<rootspace uri="urn:org:netkernel:mod:restassured:userconfig" public="true">
+	<rootspace uri="urn:org:netkernel:mod:restassured:userconfig" public="false">
 		<mapper>
 			<config>res:/org/netkernel/mod/restassured/userconfig/mappings.xml</config>
 			<space>
