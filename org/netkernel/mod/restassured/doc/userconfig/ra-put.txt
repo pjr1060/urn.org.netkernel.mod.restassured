@@ -1,0 +1,76 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:put{/endpoint}
+
+=Set RESTAssured Configuration=
+
+Use this endpoint to set the static REST-Assured configuration.
+
+See the
+[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section
+of the REST-Assured User Guide for details.
+
+=Examples=
+
+This example sets the default base URI, port and root prefix.  These will be applied to any REST-Assured
+request that doesn't explicitly set these values.  With these values set, the
+simple URI "/documents/foobar.pdf" will become
+"http://example.com:9876/acme/library/documents/foobar.pdf".
+
+This config also turns off URL encoding, which is on by default.
+
+{xml}
+<test name="Set Rest Assured static config">
+	<request>
+		<verb>SINK</verb>
+		<identifier>active:RESTAssured/config</identifier>
+		<argument name="config">
+			<literal type="xml">
+				<ra-config>
+					<baseURI>http://example.com</baseURI>
+					<port>9876</port>
+					<basePath>/acme/library</basePath>
+					<urlEncodingEnabled>false</urlEncodingEnabled>
+				</ra-config>
+			</literal>
+		</argument>
+	</request>
+	<assert>
+		<null/>
+	</assert>
+</test>
+{/xml}
+
+If you have custom mime types that should be interpreted as XML, JSON or plain text, it may be necessary
+to register these mime type with REST-Assured so that it can properly test responses.  Add these content
+type names under the appropriate heading in the config.  For example
+
+{xml}
+<test name="Set Rest Assured static config">
+	<request>
+		<verb>SINK</verb>
+		<identifier>active:RESTAssured/config</identifier>
+		<argument name="config">
+			<literal type="xml">
+				<ra-config>
+					<baseURI>http://example.com</baseURI>
+					<port>9876</port>
+					<basePath>/acme/library</basePath>
+					<urlEncodingEnabled>false</urlEncodingEnabled>
+					<xml-content-types>
+						<xml-type>application/vnd.acme.doc+xml</xml-type>
+						<xml-type>application/vnd.acme.error+xml</xml-type>
+					</xml-content-types>
+					<json-content-types>
+						<json-type>application/vnd.acme.doc+json</json-type>
+					</json-content-types>
+				</ra-config>
+			</literal>
+		</argument>
+	</request>
+	<assert>
+		<null/>
+	</assert>
+</test>
+{/xml}
+
+Note that REST-Assured apparently does not provide a way to enumerate the currently registered mime-types.
+So any that you add here will not be reported on a SOURCE request.

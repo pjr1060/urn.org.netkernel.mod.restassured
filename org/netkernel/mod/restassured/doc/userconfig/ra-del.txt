@@ -1,0 +1,11 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:del{/endpoint}
+
+=Clear RESTAssured Configuration=
+
+Use this endpoint to clear the static REST-Assured configuration and reset it to defaults.
+
+See the
+[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section
+of the REST-Assured User Guide for details.
+
+

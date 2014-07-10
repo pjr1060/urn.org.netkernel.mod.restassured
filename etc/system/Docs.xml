@@ -1,14 +1,15 @@
 <docs>
 	<doc>
 		<id>doc:org:netkernel:mod:restassured:guide</id>
-		<title>REST-assured</title>
-		<desc>Guide to the RESTAssured Library</desc>
+		<title>REST-Assured</title>
+		<desc>Guide to the REST-Assured Library</desc>
 		<uri>res:/org/netkernel/mod/restassured/doc/guide.txt</uri>
 	</doc>
 	<doc>
 		<id>doc:org:netkernel:mod:restassured:runtime</id>
 		<title>active:RESTAssured</title>
-		<desc>The RESTAssured runtime</desc>
+		<category>doc accessor runtime</category>
+		<desc>The RESTAssured unit testing framework runtime</desc>
 		<uri>res:/org/netkernel/mod/restassured/doc/RESTAssured.txt</uri>
 	</doc>
 	<doc>
@@ -17,4 +18,37 @@
 		<desc>Licensing information for the Image Util Library</desc>
 		<uri>res:/org/netkernel/mod/restassured/doc/license.txt</uri>
 	</doc>
+
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra</id>
+		<title>active:RESTAssured/config</title>
+		<desc>Manage configuration of the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra:put</id>
+		<title>Set User Config</title>
+		<desc>Set a user configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra-put.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra:get</id>
+		<title>Get User Config</title>
+		<desc>Get the current user configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra-get.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra:del</id>
+		<title>Reset  User Config</title>
+		<desc>Reset the user configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra-del.txt</uri>
+	</doc>
+
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:guide:icon</id>
+		<title>REST-Assured Icon</title>
+		<desc>REST-Assured Icon</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/icon-rest-small.png</uri>
+	</doc>
+
 </docs>

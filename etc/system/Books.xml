@@ -1,16 +1,22 @@
 <books>
 	<book>
 		<id>book:org:netkernel:mod:restassured:book</id>
-		<title>RESTAssured Library</title>
+		<title>REST-Assured Library</title>
 		<desc>Documentation for the RESTAssured runtime library</desc>
-		<author></author>
-		<publisher></publisher>
-		<date></date>
-		<modified></modified>
-		<keywords></keywords>
+		<author/>
+		<publisher/>
+		<date/>
+		<modified/>
+		<keywords/>
+		<icon>res:/org/netkernel/mod/restassured/doc/icon-rest-small.png</icon>
 		<toc>
 			<item id="doc:org:netkernel:mod:restassured:guide"/>
 			<item id="doc:org:netkernel:mod:restassured:runtime"/>
+			<item id="doc:org:netkernel:mod:restassured:userconfig:ra">
+				<item id="doc:org:netkernel:mod:restassured:userconfig:ra:put"/>
+				<item id="doc:org:netkernel:mod:restassured:userconfig:ra:get"/>
+				<item id="doc:org:netkernel:mod:restassured:userconfig:ra:del"/>
+			</item>
 			<separator/>
 			<item id="doc:org:netkernel:mod:restassured:license"/>
 		</toc>

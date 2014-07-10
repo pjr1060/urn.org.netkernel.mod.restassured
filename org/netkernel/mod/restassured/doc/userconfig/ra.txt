@@ -1,0 +1,44 @@
+=REST-Assured User Configuration=
+
+These endpoints manage the REST-Assured user-settable static configuration.  These
+values affect how REST-Assured will treat missing of incomplete information when
+building requests or interpreting responses.
+
+See the
+[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section
+of the REST-Assured User Guide for details.
+
+This configuration is specified (on SINK) and returned (on SOURCE) as an HDS object structured like the following:
+
+{text}
+/ra-config
+    /baseURI : string
+    /port : int
+    /basePath : string
+    /rootPath : string
+    /authentication
+    	/none
+    	/basic
+    		/user : string
+    		/password : string
+    	/digest
+    		/user : string
+    		/password : string
+    	/oauth
+    		/consumerKey : string
+    		/consumerSecret : string
+    		/accessToken : string
+    		/secretToken : string
+    	/oauth2
+    		/accessToken : string
+    /requestContentType : string
+    /responseContentType : string
+    /urlEncodingEnabled : boolean
+    /xml-content-types
+        /xml-type : string
+    /json-content-types
+        /json-type : string
+    /text-content-types
+        /text-type : string
+{/text}
+

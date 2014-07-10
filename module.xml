@@ -7,7 +7,7 @@
 		<info>
 			<name>DSL Runtime / REST-Assured</name>
 			<description>REST-Assured DSL runtime</description>
-			<icon>res:/org/netkernel/mod/restassured/doc/icon.png</icon>
+			<icon>res:/org/netkernel/mod/restassured/doc/icon-rest-small.png</icon>
 		</info>
 	</meta>
 	<system>
@@ -22,6 +22,7 @@
 	<rootspace>
 		<accessor>
 			<id>mod.restassured.RESTAssured</id>
+			<description>REST-Assured Unit Test Framework</description>
 			<grammar>
 				<active>
 					<identifier>active:RESTAssured</identifier>
@@ -80,7 +81,7 @@
 		</literal>
 	</rootspace>
 
-	<rootspace uri="urn:org:netkernel:mod:restassured::doc" public="true">
+	<rootspace uri="urn:org:netkernel:mod:restassured:doc" public="true">
 		<fileset>
 			<regex>res:/etc/system/(Docs|Books).xml</regex>
 		</fileset>

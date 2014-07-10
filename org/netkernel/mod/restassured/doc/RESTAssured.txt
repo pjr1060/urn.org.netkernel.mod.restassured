@@ -1,6 +1,8 @@
 {endpoint}mod.restassured.RESTAssured{/endpoint}
 
-The RESTAssured runtime.  Implemented as a wrapper over the active:groovy runtime, this provides the REST-Assured DSL with no need for any configuration. 
+The RESTAssured runtime.  Implemented as a wrapper over the active:groovy runtime, this provides the REST-Assured DSL
+with default configuration. Additional endpoints have been added here to provide for managing REST-Assured configuration
+in a resource-oriented way.
 
 ==operator==
 
@@ -12,21 +14,23 @@ All additional arguments are relayed through to the DSL and can be accessed usin
 
 ==Examples==
 
-This is an example of using active:RESTAssured in a unit test of a REST endpoint, notice that the result can be returned as the response.
-
+This is an example of using active:RESTAssured in a unit test of a REST endpoint.  This example
+issues a GET request to the given URL then returns the string value of the response.  In this
+case, REST-Assured is not enforcing any assertions.
 {xml}
 <request>
 	<identifier>active:RESTAssured</identifier>
 	<argument name="operator"><literal type="string">
-		s=get("http://localhost:8080/test/RESTAssured/foo").asString();
-		context.createResponseFrom(s)
+		import static com.jayway.restassured.RestAssured.*
+		result = get ("http://localhost:8080/test/RESTAssured/foo").asString()
+		context.createResponseFrom (result)
 	</literal>
 	</argument>
 </request>
 {/xml}
 
 Here's a more complex example where a body argument is passed in, transrepted to binary stream and then set as the POST request body
-using a bytearray...
+using a byte array.
 
 {xml}
 <request>
@@ -34,12 +38,72 @@ using a bytearray...
 	<argument name="body"><literal type="xml"><hello>World</hello></literal></argument>
 	<argument name="operator"><literal type="string">
 		import org.netkernel.layer0.representation.*
-		body = context.source("arg:body", IReadableBinaryStreamRepresentation.class);
-		baos=new ByteArrayOutputStream()
-		body.write(baos)
-		s=given().body(baos.toByteArray()).header("Content-Type", "text/xml").post("/test/RESTAssured/cn2").asString();
-		context.createResponseFrom(s)
+		import static com.jayway.restassured.RestAssured.*
+		body = context.source ("arg:body", IReadableBinaryStreamRepresentation.class)
+		baos = new ByteArrayOutputStream()
+		body.write (baos)
+		result = given()
+			.body (baos.toByteArray())
+			.header ("Content-Type", "text/xml")
+			.post("/test/RESTAssured/cn2")
+			.asString()
+		context.createResponseFrom (result)
 	</literal>
 	</argument>
 </request>
 {/xml}
+
+In general, REST-Assured tests are more complex than this.  Embedding significant amounts of
+Groovy or Java code inside an XML document generally not a good practice as it makes it much
+harder to debug and prevents your IDE or other tools from helping you.  It is recommended that
+you place your non-trivial REST-Assured tests in standalone Groovy files and reference them by URI:
+
+{xml}
+<request>
+	<identifier>active:RESTAssured</identifier>
+	<argument name="operator">res:/test/content/post-article.gy</argument>
+</request>
+{/xml}
+
+Where post-article.gy may look like this:
+
+{java}
+import org.netkernel.layer0.nkf.INKFRequestContext
+import static com.jayway.restassured.RestAssured.*
+import com.jayway.restassured.config.RestAssuredConfig
+import static org.hamcrest.Matchers.*
+import javax.xml.namespace.NamespaceContext
+
+RestAssuredConfig xmlconfig = context.source ("active:RESTAssured/config", RestAssuredConfig.class)
+NamespaceContext namespaces = context.source ("active:RESTAssured/xml-config/namespaces", NamespaceContext.class)
+
+String contentType = "application/vnd.article.v1+xml"
+String collectionContentType = "application/vnd.collections+xml"
+String body = context.source ("res:/test/data/sample-article1.xml", String.class)
+
+given()
+	.config (xmlconfig)
+	.body (body)
+	.contentType (contentType)
+.when()
+	.post ("/content")
+.then()
+	.log().ifStatusCodeMatches (not (201))
+	.statusCode (201)
+	.contentType (collectionContentType)
+	.body (not (empty()))
+	.body (hasXPath ("/collection/@href", namespaces, equalTo ("/content")))
+	.body (hasXPath ("/collection/links/link/@type", namespaces, equalTo (collectionContentType)))
+
+context.createResponseFrom (true)
+{/java}
+
+In this test, an XML article document is sent to the REST endpoint via POST.  An HTTP response code
+of 201 is expected.  If any other code is returned, then REST-Assured logs the response it actually
+received, on stdout.  It also checks the received Content-Type and verifies that some expected XML
+XPath values exist in the received body.  If any of these assertions fail, then an exception is thrown.
+
+Lastly, if all is well, the literal value "true" is returned as the resource representation.  Any value
+is fine, this is nothing to do with REST-Assured.  The wrapping XUnit test might check this, for example.
+
+See the sub-sections on configuration for information about the "xmlconfig" and "namespaces" values
