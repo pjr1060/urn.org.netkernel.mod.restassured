@@ -45,7 +45,12 @@ INKFRequestContext context = context
 
 def String nodeStringValue (IHDSNode config, String path, String defaultValue)
 {
-	try { config.getFirstValue (path) } catch (Exception ignored) { defaultValue }
+	try {
+		value = config.getFirstValue (path)
+		(value == null) ? defaultValue : value
+	} catch (Exception ignored) {
+		defaultValue
+	}
 }
 
 def String nodeStringValue (IHDSNode config, String path)
@@ -67,16 +72,15 @@ def IHDSNode configHds = context.source ("arg:config", IHDSNode.class)
 def IHDSNode config = configHds.getFirstNode ("/ra-config")
 
 // Set simple global vars
-RestAssured.baseURI = nodeStringValue (config, "baseURI")
+RestAssured.baseURI = nodeStringValue (config, "baseURI", RestAssured.DEFAULT_URI)
 RestAssured.port = nodeIntValue (config, "port", RestAssured.DEFAULT_PORT)
-RestAssured.basePath = nodeStringValue (config, "basePath")
-RestAssured.rootPath = nodeStringValue (config, "rootPath")
-RestAssured.authentication = nodeStringValue (config, "authentication")
+RestAssured.basePath = nodeStringValue (config, "basePath", RestAssured.DEFAULT_PATH)
+RestAssured.rootPath = nodeStringValue (config, "rootPath", RestAssured.DEFAULT_BODY_ROOT_PATH)
+RestAssured.urlEncodingEnabled = nodeBooleanValue (config, "urlEncodingEnabled", RestAssured.DEFAULT_URL_ENCODING_ENABLED)
 
 // Call global setter functions
 RestAssured.requestContentType (nodeStringValue (config, "requestContentType", null) as String)
 RestAssured.responseContentType (nodeStringValue (config, "responseContentType", null) as String)
-RestAssured.urlEncodingEnabled = nodeBooleanValue (config, "urlEncodingEnabled", RestAssured.DEFAULT_URL_ENCODING_ENABLED)
 
 // Handle authentication config
 IHDSNode auth = config.getFirstNode ("authentication")

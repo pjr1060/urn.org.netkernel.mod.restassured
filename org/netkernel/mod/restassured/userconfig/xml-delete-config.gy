@@ -2,7 +2,7 @@ import org.netkernel.layer0.nkf.INKFRequestContext
 
 INKFRequestContext context = context
 
-def pdsId = 'pds:/RESTAssured/xml-config/persist'	// FixMe: Need to virtualize this
+def pdsId = 'pds:/RESTAssured/xml-config/persist'
 
 context.delete (pdsId)
 

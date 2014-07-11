@@ -7,9 +7,8 @@ import javax.xml.namespace.NamespaceContext
 
 INKFRequestContext context = context
 
-def pdsId = 'pds:/RESTAssured/xml-config/persist'	// FixMe: Need to virtualize this
+def pdsId = 'pds:/RESTAssured/xml-config/persist'
 
-SimpleNamespaceContext namespaces = new SimpleNamespaceContext()
 IHDSNode nsHds
 
 try {
@@ -26,7 +25,9 @@ if (context.getThisRequest().getRepresentationClass() == IHDSNode.class) {
 	return
 }
 
-nsHds.getNodes ("namespaces/namespace") each { IHDSNode binding ->
+SimpleNamespaceContext namespaces = new SimpleNamespaceContext()
+
+nsHds.getNodes ("namespace") each { IHDSNode binding ->
 	namespaces.bind (binding.getFirstValue ("prefix") as String, binding.getFirstValue ("uri") as String)
 }
 
