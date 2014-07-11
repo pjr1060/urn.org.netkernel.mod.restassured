@@ -106,4 +106,8 @@ XPath values exist in the received body.  If any of these assertions fail, then 
 Lastly, if all is well, the literal value "true" is returned as the resource representation.  Any value
 is fine, this is nothing to do with REST-Assured.  The wrapping XUnit test might check this, for example.
 
-See the sub-sections on configuration for information about the "xmlconfig" and "namespaces" values
+Note that there is no inherent restriction requiring only one REST-Assured invocation per script.  It
+is very common, for example, to PUT a resource, do a GET and examine the body to verify it was stored properly, then DELETE
+it and do another GET it to verify that it's really gone, all in one script.
+
+See the sub-sections on configuration for information about the "active:RESTAssured/config" and "active:RESTAssured/xml-config/namespaces" resources.

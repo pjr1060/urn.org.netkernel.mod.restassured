@@ -1,0 +1,41 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:xml-config:put{/endpoint}
+
+=Set XML Namespace Configuration=
+
+Use this endpoint to set an XML namespace configuration.
+
+=Examples=
+
+This example sets two namespaces and explicitly sets the namespace-aware flag.  This is
+not necessary as this flag will be set by virtue of namespaces having been declared.
+
+{xml}
+<test name="Set XML config">
+	<request>
+		<verb>SINK</verb>
+		<identifier>active:RESTAssured/xml-config</identifier>
+		<argument name="config">
+			<literal type="xml">
+				<xml-config>
+					<namespace-aware>true</namespace-aware>
+					<namespaces>
+						<namespace>
+							<prefix>foo</prefix>
+							<uri>http://xyz.com/ns/foo</uri>
+						</namespace>
+						<namespace>
+							<prefix>bar</prefix>
+							<uri>http://abc.com/ns/bar</uri>
+						</namespace>
+					</namespaces>
+				</xml-config>
+			</literal>
+		</argument>
+	</request>
+	<assert>
+		<null/>
+	</assert>
+</test>
+{/xml}
+
+Note that setting an XML configuration always replaces any prior values.

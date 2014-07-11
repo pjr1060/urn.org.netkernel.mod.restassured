@@ -1,0 +1,39 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:xml-config:get{/endpoint}
+
+=Get XML Namespace Configuration=
+
+Use this endpoint to get the current XML namespace confoguration, either as an HDSNode or
+as an [http://rest-assured.googlecode.com/svn/tags/2.3.2/apidocs/com/jayway/restassured/config/XmlConfig.html XmlConfig] object (default).
+
+Requesting a representation type of org.netkernel.layer0.representation.impl.HDSBuilder will return an HDS.  Otherwise
+a XmlConfig object will be returned.  This object may then be passed to the ".config()" method to inform REST-Assured
+of the namespaces you've defined.
+
+{java}
+import static com.jayway.restassured.RestAssured.*
+import com.jayway.restassured.config.RestAssuredConfig
+import static org.hamcrest.Matchers.*
+import javax.xml.namespace.NamespaceContext
+
+RestAssuredConfig xmlconfig = context.source ("active:RESTAssured/xml-config", RestAssuredConfig.class)
+NamespaceContext namespaces = context.source ("active:RESTAssured/xml-config/namespaces", NamespaceContext.class)
+String collectionContentType = "application/vnd.collections+xml"
+
+given()
+	.config (xmlconfig)               // Tells REST-Assured about stored XML config
+	.accept (collectionContentType)
+.when()
+	.get ("/subscriptions/pending")
+.then()
+	.log().ifStatusCodeMatches (not (200))
+	.statusCode (200)
+	.contentType (collectionContentType)
+	.body (not (empty()))
+	.body (hasXPath ("/c:collection/@href", namespaces, equalTo ("/content/pending")))
+	.body (hasXPath ("/c:collection/c:links/c:link/@type", namespaces, equalTo (collectionContentType)))
+	// "namespaces" is used by hasXPath() to tell it about the namespaces
+
+context.createResponseFrom (true)
+{/java}
+
+Issuing a SOURCE before SINK, or after DELETE, will return a result with an empty set of namespaces.

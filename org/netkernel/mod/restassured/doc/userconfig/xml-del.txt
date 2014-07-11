@@ -1,0 +1,7 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:xml-config:del{/endpoint}
+
+=Clear XML Namespace Configuration=
+
+Use this endpoint to clear the XML namespace configuration.
+
+After issuing DELETE to this endpoint, no namespace bindings will be defined.

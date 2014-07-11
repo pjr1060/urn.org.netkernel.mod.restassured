@@ -52,7 +52,8 @@
 
 	<endpoint>
 		<verbs>DELETE</verbs>
-		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:delete</id>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:del</id>
+		<description>Clear XML Namespace Configuration for REST-Assured</description>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
@@ -67,6 +68,7 @@
 	<endpoint>
 		<verbs>SINK</verbs>
 		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:put</id>
+		<description>Set XML Namespace Configuration for REST-Assured</description>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
@@ -83,6 +85,7 @@
 	<endpoint>
 		<verbs>SOURCE</verbs>
 		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:get</id>
+		<description>Get XML Namespace Configuration for REST-Assured</description>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
@@ -97,6 +100,7 @@
 	<endpoint>
 		<verbs>SOURCE</verbs>
 		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:namespaces:get</id>
+		<description>Get a NameSpaceContext object for the current XML Namespace Configuration</description>
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config/namespaces</identifier>

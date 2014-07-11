@@ -41,4 +41,4 @@ and [https://github.com/jayway/rest-assured GitHub].  There is also a full [http
 This module incorporates the [http://code.google.com/p/rest-assured/ REST-Assured library]
 created by [http://www.jayway.com/ Jayway].  Our grateful thanks to all those who contributed to the project.
 
-The configuration resources and documentation were provided by [mailto:ron@overstory.co.uk Ron Hitchens] of [http://overstory.co.uk/home/ OverStory LLP].
+The configuration resources and documentation were added by [mailto:ron@overstory.co.uk Ron Hitchens] of [http://overstory.co.uk/home/ OverStory LLP].

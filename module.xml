@@ -26,7 +26,7 @@
 			<grammar>
 				<active>
 					<identifier>active:RESTAssured</identifier>
-					<argument name="operator"/>
+					<argument name="operator" desc="Groovy script"/>
 					<varargs/>
 				</active>
 			</grammar>

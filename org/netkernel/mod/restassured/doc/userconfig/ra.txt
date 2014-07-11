@@ -42,3 +42,10 @@ This configuration is specified (on SINK) and returned (on SOURCE) as an HDS obj
         /text-type : string
 {/text}
 
+Typically you would have a test list that you run with NetKernel XUnit, where one of the first tests
+would issue a SINK to the config endpoint to set the configuration.  The REST-Assured static
+config will persist while the remaining tests run.
+
+It's a good idea to issue a DELETE as the
+last step to avoid any configuration state affecting other tests.
+

@@ -17,6 +17,12 @@
 				<item id="doc:org:netkernel:mod:restassured:userconfig:ra:get"/>
 				<item id="doc:org:netkernel:mod:restassured:userconfig:ra:del"/>
 			</item>
+			<item id="doc:org:netkernel:mod:restassured:userconfig:xml-config">
+				<item id="doc:org:netkernel:mod:restassured:userconfig:xml-config:put"/>
+				<item id="doc:org:netkernel:mod:restassured:userconfig:xml-config:get"/>
+				<item id="doc:org:netkernel:mod:restassured:userconfig:xml-config:namespaces:get"/>
+				<item id="doc:org:netkernel:mod:restassured:userconfig:xml-config:del"/>
+			</item>
 			<separator/>
 			<item id="doc:org:netkernel:mod:restassured:license"/>
 		</toc>
