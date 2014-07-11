@@ -5,8 +5,8 @@
 Use this endpoint to set the static REST-Assured configuration.
 
 See the
-[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section
-of the REST-Assured User Guide for details.
+[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section of the
+[https://code.google.com/p/rest-assured/wiki/Usage REST-Assured User Guide] for details.
 
 =Examples=
 

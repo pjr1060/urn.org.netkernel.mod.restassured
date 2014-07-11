@@ -5,7 +5,7 @@
 Use this endpoint to clear the static REST-Assured configuration and reset it to defaults.
 
 See the
-[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section
-of the REST-Assured User Guide for details.
+[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section of the
+[https://code.google.com/p/rest-assured/wiki/Usage REST-Assured User Guide] for details.
 
 

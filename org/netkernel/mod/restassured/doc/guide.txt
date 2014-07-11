@@ -41,6 +41,6 @@ and [https://github.com/jayway/rest-assured GitHub].  There is also a full [http
 This library is based on the [http://code.google.com/p/rest-assured/|REST-Assured Project]. Our grateful thanks to all
 those who contributed to the project.
 
-Thanks to Mircea Cocosila for the [http://www.netkernelroc.org/nk4um/topic/92/|initial suggestion] and testing and porting of example unit tests to RESTAssured .
+Thanks to Mircea Cocosila for the [http://www.netkernelroc.org/nk4um/topic/92/|initial suggestion] and testing and porting of example unit tests to RESTAssured.
 
 The configuration resources and documentation were added by [mailto:ron@overstory.co.uk Ron Hitchens] of [http://overstory.co.uk/home/ OverStory LLP].

@@ -7,7 +7,7 @@ Use this endpoint to set an XML namespace configuration.
 =Examples=
 
 This example sets two namespaces and explicitly sets the namespace-aware flag.  This is
-not necessary as this flag will be set by virtue of namespaces having been declared.
+not necessary as the flag will be set by virtue of namespaces having been declared.
 
 {xml}
 <test name="Set XML config">
