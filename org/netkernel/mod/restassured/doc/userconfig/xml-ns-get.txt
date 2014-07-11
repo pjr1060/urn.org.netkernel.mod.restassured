@@ -1,0 +1,40 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:xml-config:namespaces:get{/endpoint}
+
+=Get Current NameSpaceContext Bindings=
+
+Use this endpoint to get the current XML namespace bindings only, either as an HDSNode or
+as a [http://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html NameSpaceContext] object (default).
+If the response is requested as an HDSNode, only the /namespaces subtree will be included.
+
+Requesting a representation type of org.netkernel.layer0.representation.impl.HDSBuilder will return an HDS.  Otherwise
+a NameSpaceContext object will be returned.  This object may then be passed to any object that accepts a NameSpaceContext
+instance.  This is typically something like the Hamcrest hasXPath() matcher.
+
+{java}
+import static com.jayway.restassured.RestAssured.*
+import com.jayway.restassured.config.RestAssuredConfig
+import static org.hamcrest.Matchers.*
+import javax.xml.namespace.NamespaceContext
+
+RestAssuredConfig xmlconfig = context.source ("active:RESTAssured/xml-config", RestAssuredConfig.class)
+NamespaceContext namespaces = context.source ("active:RESTAssured/xml-config/namespaces", NamespaceContext.class)
+String collectionContentType = "application/vnd.collections+xml"
+
+given()
+	.config (xmlconfig)               // Tells REST-Assured about stored XML config
+	.accept (collectionContentType)
+.when()
+	.get ("/subscriptions/pending")
+.then()
+	.log().ifStatusCodeMatches (not (200))
+	.statusCode (200)
+	.contentType (collectionContentType)
+	.body (not (empty()))
+	.body (hasXPath ("/c:collection/@href", namespaces, equalTo ("/content/pending")))
+	.body (hasXPath ("/c:collection/c:links/c:link/@type", namespaces, equalTo (collectionContentType)))
+	// "namespaces" is used by hasXPath() to tell it about the namespaces
+
+context.createResponseFrom (true)
+{/java}
+
+Issuing a SOURCE before SINK, or after DELETE, will return a result with an empty set of namespaces.

@@ -1,0 +1,117 @@
+<config>
+
+	<endpoint>
+		<verbs>DELETE</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:del</id>
+		<description>Reset REST-Assured config</description>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/config</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-reset-static-state.gy</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SINK</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:put</id>
+		<description>Set REST-Assured config as HDS</description>
+		<doc>doc:org:netkernel:mod:restassured:userconfig:ra:put</doc>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/config</identifier>
+				<argument name="config" desc="HDS representation of RA config"/>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-setup-static-state.gy</argument>
+			<argument name="config">arg:config</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SOURCE</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:get</id>
+		<description>Get Current REST-Assured config as HDS</description>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/config</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-report-static-state.gy</argument>
+		</request>
+	</endpoint>
+
+	<!-- ============================================================ -->
+
+	<endpoint>
+		<verbs>DELETE</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:del</id>
+		<description>Clear XML Namespace Configuration for REST-Assured</description>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-delete-config.gy</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SINK</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:put</id>
+		<description>Set XML Namespace Configuration for REST-Assured</description>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config</identifier>
+				<argument name="config" desc="HDS representation of XML config"/>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-store-config.gy</argument>
+			<argument name="config">arg:config</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SOURCE</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:get</id>
+		<description>Get XML Namespace Configuration for REST-Assured</description>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-fetch-config.gy</argument>
+		</request>
+	</endpoint>
+
+	<endpoint>
+		<verbs>SOURCE</verbs>
+		<id>urn:org:netkernel:mod:restassured:userconfig:xml-config:namespaces:get</id>
+		<description>Get a NameSpaceContext object for the current XML Namespace Configuration</description>
+		<grammar>
+			<active>
+				<identifier>active:RESTAssured/xml-config/namespaces</identifier>
+			</active>
+		</grammar>
+		<request>
+			<identifier>active:groovy</identifier>
+			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-namespaces.gy</argument>
+		</request>
+	</endpoint>
+
+</config>
+
+

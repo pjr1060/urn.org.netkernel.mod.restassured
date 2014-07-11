@@ -1,14 +1,15 @@
 <docs>
 	<doc>
 		<id>doc:org:netkernel:mod:restassured:guide</id>
-		<title>REST-assured</title>
-		<desc>Guide to the RESTAssured Library</desc>
+		<title>REST-Assured</title>
+		<desc>Guide to the REST-Assured Library</desc>
 		<uri>res:/org/netkernel/mod/restassured/doc/guide.txt</uri>
 	</doc>
 	<doc>
 		<id>doc:org:netkernel:mod:restassured:runtime</id>
 		<title>active:RESTAssured</title>
-		<desc>The RESTAssured runtime</desc>
+		<category>doc accessor runtime</category>
+		<desc>The RESTAssured unit testing framework runtime</desc>
 		<uri>res:/org/netkernel/mod/restassured/doc/RESTAssured.txt</uri>
 	</doc>
 	<doc>
@@ -17,4 +18,69 @@
 		<desc>Licensing information for the Image Util Library</desc>
 		<uri>res:/org/netkernel/mod/restassured/doc/license.txt</uri>
 	</doc>
+
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra</id>
+		<title>active:RESTAssured/config</title>
+		<desc>Manage configuration of the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra:put</id>
+		<title>Set User Config</title>
+		<desc>Set a user configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra-put.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra:get</id>
+		<title>Get User Config</title>
+		<desc>Get the current user configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra-get.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:ra:del</id>
+		<title>Reset  User Config</title>
+		<desc>Reset the user configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/ra-del.txt</uri>
+	</doc>
+
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:xml-config</id>
+		<title>active:RESTAssured/xml-config</title>
+		<desc>Manage XML configuration of the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/xml.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:xml-config:put</id>
+		<title>Set XML Namespace Config</title>
+		<desc>Set the XML namespace configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/xml-put.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:xml-config:get</id>
+		<title>Get XML Namespace Config</title>
+		<desc>Get the XML namespace configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/xml-get.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:xml-config:del</id>
+		<title>Clear XML Namespace Config</title>
+		<desc>Clear the XML namespace configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/xml-del.txt</uri>
+	</doc>
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:userconfig:xml-config:namespaces:get</id>
+		<title>Get NameSpaceContext Object</title>
+		<desc>Get a nameSpaceContext object for the XML namespace configuration for the REST-Assured runtime</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/userconfig/xml-ns-get.txt</uri>
+	</doc>
+
+
+	<doc>
+		<id>doc:org:netkernel:mod:restassured:guide:icon</id>
+		<title>REST-Assured Icon</title>
+		<desc>REST-Assured Icon</desc>
+		<uri>res:/org/netkernel/mod/restassured/doc/icon-rest-small.png</uri>
+	</doc>
+
 </docs>

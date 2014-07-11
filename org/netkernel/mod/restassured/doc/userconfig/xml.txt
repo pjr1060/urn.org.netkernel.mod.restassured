@@ -1,0 +1,35 @@
+=XML User Configuration=
+
+These endpoints manage XML namespace settings for REST-Assured and Hamcrest XML matchers.  Unlike
+the static settings of REST-Assured itself, these settings are stored in a transient resource.  This namespace configuration
+is used for to generate [http://rest-assured.googlecode.com/svn/tags/2.3.2/apidocs/com/jayway/restassured/config/XmlConfig.html XmlConfig]
+objects for REST-Assured and to create
+[http://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html NameSpaceContext] objects used by Hamcrest
+(or other compatible code).
+
+See the
+[https://code.google.com/p/rest-assured/wiki/Usage REST-Assured User Guide] for details.
+
+This configuration is specified (on SINK) and returned (on SOURCE) as an HDS object structured like the following:
+
+{text}
+/xml-config
+    /namespace-aware
+    /namespaces
+        /namespace
+            /prefix
+            /uri
+        /namespace
+            /prefix
+            /uri
+{/text}
+
+By default, Java XML parsers are not namespace aware.  However, setting an XML config with this endpoint that
+includes namespace bindings will automatically enable namespace-aware parsing.
+
+Typically you would have a test list that you run with NetKernel XUnit, where one of the first tests
+would issue a SINK to the xml-config endpoint to set the namespace bindings.  This namespace config
+will persist while the remaining tests run.  You just need to issue SOURCE requests on the xml-config
+endpoint to retrieve those bindings in the form that's useful.
+
+It's a good idea to issue a DELETE as the last step to avoid any bindings affecting other tests.

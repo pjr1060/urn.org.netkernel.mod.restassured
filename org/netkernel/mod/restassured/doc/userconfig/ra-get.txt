@@ -1,0 +1,15 @@
+{endpoint}urn:org:netkernel:mod:restassured:userconfig:get{/endpoint}
+
+=Get Current RESTAssured Configuration=
+
+Use this endpoint to get the current static REST-Assured configuration as an HDSNode.
+
+See the
+[https://code.google.com/p/rest-assured/wiki/Usage#Default_values default values] section
+of the REST-Assured User Guide for details.
+
+Note that REST-Assured does not provide a way to enumerate the currently registered mime-types.
+So any mime types you registered on SINK will not be included in the HDS response.
+
+Issuing a SOURCE before SINK, or after DELETE, will return and HDS structure with the
+default values.  Typically http://localhost:8080/.

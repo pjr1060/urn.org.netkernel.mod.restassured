@@ -1,15 +1,44 @@
-=RESTAssured=
+=REST-Assured=
 
-This library contains a runtime providing the REST-Assured testing suite.
+This library contains a runtime providing the REST-Assured testing suite.  REST-Assured is
+a testing framework that acts as a client for testing REST web services.  It allows you to build
+REST requests declaratively, using a literate programming syntax, then make assertions about
+the received response.  For example:
+
+{java}
+bogusContentType = "application/this-is-a-bad-content-type+xml";
+
+given()
+	.body ("<content>dummy</content>")
+	.contentType (bogusContentType)
+.when()
+	.post ("/content")
+.then()
+	.statusCode (415)
+	.contentType ("application/vnd.errors+xml")
+	.body (not (empty()))
+	.body (hasXPath ("/errors/unrecognized-content-type", null, equalTo (bogusContentType)));
+{/java}
+
+In the above, the statements following "given()" are the pre-conditions that setup the request.  The
+".when()" section sets the verb and initiates the request.
+Any of the assertions about the response, those following ".then()", that do not hold will throw an exception.
+
+REST Assured tests may be easily invoked by the NetKernel XUnit facility and can do very complex, compound
+tests making use of the Groovy or Java syntax.
+
+In the above example, the "hasXPath()" function is part of the [http://code.google.com/p/hamcrest/ Hamcrest matcher library]
+which REST-Assured is designed to work with (also see [https://github.com/hamcrest GitHub]).  More about using XML namespaces
+with REST-Assured and Hamcrest in the subsections on XML configuration.
 
 ==Usage Guide==
 
-A detailed usage guide for the REST-Assured DSL is provided [http://code.google.com/p/rest-assured/wiki/Usage|here]
+REST-Assured is an open source project hosted both on [http://code.google.com/p/rest-assured/ Google Code]
+and [https://github.com/jayway/rest-assured GitHub].  There is also a full [https://code.google.com/p/rest-assured/wiki/Usage User Guide].
 
 ==Acknowledgements==
 
 This library is based on the [http://code.google.com/p/rest-assured/|REST-Assured Project]. Our grateful thanks to all
 those who contributed to the project.
 
-Thanks to Ron Hitchens of [http://www.overstory.co.uk|OverStory] for testing, documentation and discovering 
-the dark inner secrets of XML namespaces / configuration.
+The configuration resources and documentation were added by [mailto:ron@overstory.co.uk Ron Hitchens] of [http://overstory.co.uk/home/ OverStory LLP].

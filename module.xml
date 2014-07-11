@@ -7,7 +7,7 @@
 		<info>
 			<name>DSL Runtime / REST-Assured</name>
 			<description>REST-Assured DSL runtime</description>
-			<!--<icon>res:/org/netkernel/rdf/jena/doc/icon.png</icon>-->
+			<icon>res:/org/netkernel/mod/restassured/doc/icon-rest-small.png</icon>
 		</info>
 	</meta>
 	<system>
@@ -22,17 +22,18 @@
 	<rootspace>
 		<accessor>
 			<id>mod.restassured.RESTAssured</id>
+			<description>REST-Assured Unit Test Framework</description>
 			<grammar>
 				<active>
 					<identifier>active:RESTAssured</identifier>
-					<argument name="operator"/>
+					<argument name="operator" desc="Groovy script"/>
 					<varargs/>
 				</active>
 			</grammar>
 			<class>org.netkernel.mod.restassured.RESTAssuredRuntime</class>
 		</accessor>
 		<import>
-			<uri>urn:org:netkernel:mod:restassured:accessors</uri>
+			<uri>urn:org:netkernel:mod:restassured:userconfig</uri>
 		</import>
 		<import>
 			<private/>
@@ -42,19 +43,22 @@
 			<private/>
 			<uri>urn:org:netkernel:ext:layer1</uri>
 		</import>
+		<fileset>
+			<regex>res:/org/netkernel/mod/restassured/doc/.*</regex>
+		</fileset>
 	</rootspace>
 
-	<rootspace uri="urn:org:netkernel:mod:restassured:accessors" public="true">
+	<rootspace uri="urn:org:netkernel:mod:restassured:userconfig" public="false">
 		<mapper>
-			<config>res:/org/netkernel/mod/restassured/accessors/mappings.xml</config>
+			<config>res:/org/netkernel/mod/restassured/userconfig/mappings.xml</config>
 			<space>
 				<fileset>
-					<regex>res:/org/netkernel/mod/restassured/accessors/.*</regex>
+					<regex>res:/org/netkernel/mod/restassured/userconfig/.*</regex>
 				</fileset>
 			</space>
 		</mapper>
 		<fileset>
-			<regex>res:/org/netkernel/mod/restassured/accessors/.*</regex>
+			<regex>res:/org/netkernel/mod/restassured/userconfig/.*</regex>
 		</fileset>
 		<import>
 			<uri>urn:org:netkernel:mod:pds</uri>
@@ -72,12 +76,12 @@
 		</import>
 		<literal uri="res:/etc/pdsConfig.xml" type="xml">
 			<config>
-				<zone>iop:rest:httpstatemanager</zone>
+				<zone>urn:org:netkernel:mod:restassured:userconfig</zone>
 			</config>
 		</literal>
 	</rootspace>
 
-	<rootspace uri="urn:org:netkernel:mod:restassured::doc" public="true">
+	<rootspace uri="urn:org:netkernel:mod:restassured:doc" public="true">
 		<fileset>
 			<regex>res:/etc/system/(Docs|Books).xml</regex>
 		</fileset>
