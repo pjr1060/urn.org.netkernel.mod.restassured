@@ -23,13 +23,11 @@
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/config</identifier>
-				<argument name="config" desc="HDS representation of RA config"/>
 			</active>
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
 			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/ra-setup-static-state.gy</argument>
-			<argument name="config">arg:config</argument>
 		</request>
 	</endpoint>
 
@@ -72,13 +70,11 @@
 		<grammar>
 			<active>
 				<identifier>active:RESTAssured/xml-config</identifier>
-				<argument name="config" desc="HDS representation of XML config"/>
 			</active>
 		</grammar>
 		<request>
 			<identifier>active:groovy</identifier>
 			<argument name="operator">res:/org/netkernel/mod/restassured/userconfig/xml-store-config.gy</argument>
-			<argument name="config">arg:config</argument>
 		</request>
 	</endpoint>
 

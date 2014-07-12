@@ -14,7 +14,7 @@ not necessary as the flag will be set by virtue of namespaces having been declar
 	<request>
 		<verb>SINK</verb>
 		<identifier>active:RESTAssured/xml-config</identifier>
-		<argument name="config">
+		<argument name="primary">
 			<literal type="xml">
 				<xml-config>
 					<namespace-aware>true</namespace-aware>

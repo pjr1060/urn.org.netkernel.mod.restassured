@@ -25,12 +25,51 @@ This configuration is specified (on SINK) and returned (on SOURCE) as an HDS obj
             /uri
 {/text}
 
-By default, Java XML parsers are not set to be namespace aware.  However, setting an XML config with this endpoint that
-includes namespace bindings will automatically enable namespace-aware parsing.
+By default, Java XML parsers are not configured to be namespace aware.  However, setting an XML config that
+includes any namespace bindings will automatically enable namespace-aware parsing.  If there are no namespace
+bindings in the given config then any prior namespace bindings are cleared.  Use the explicit namespace-aware
+boolean flag to enable namespace aware parsing if, for example, you are constructing your own
+[http://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html NameSpaceContext] object.
 
 Typically you would have a test list that you run with NetKernel XUnit, where one of the first tests
 would issue a SINK to the xml-config endpoint to set the namespace bindings.  This namespace config
 will persist while the remaining tests run.  You just need to issue SOURCE requests on the xml-config
-endpoint to retrieve those bindings in the form that's useful.
+endpoint to retrieve those bindings in the representation that's useful to you.
 
-It's a good idea to issue a DELETE as the last step to avoid any bindings affecting other tests.
+Alternatively, if you want each test to be standalone and not depend on a previous test having run first,
+possibly using its own set of namespace bindings,
+you can place a statement like this in your test code, prior to using any REST-Assured functions:
+
+{java}
+context.sink ("active:RESTAssured/xml-config", context.source ("res:/test/config/xml-config.xml"))
+{/java}
+
+Where the content of res:/test/config/xml-config.xml might be the following:
+
+{xml}
+<xml-config>
+	<namespaces>
+		<namespace>
+			<prefix>e</prefix>
+			<uri>http://example.com/ns/errors</uri>
+		</namespace>
+		<namespace>
+			<prefix>meta</prefix>
+			<uri>http://example.com/ns/metadata</uri>
+		</namespace>
+		<namespace>
+			<prefix>atom</prefix>
+			<uri>http://www.w3.org/2005/Atom</uri>
+		</namespace>
+	</namespaces>
+</xml-config>
+{/xml}
+
+If you're not interpreting XML in responses, or if your XML is not namespaced, then
+this is unnecessary.
+
+It's a good idea to issue a DELETE as the last step to avoid any defined bindings affecting other tests.
+
+{java}
+context.delete ("active:RESTAssured/xml-config")
+{/java}

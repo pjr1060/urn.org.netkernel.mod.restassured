@@ -46,6 +46,61 @@ Typically you would have a test list that you run with NetKernel XUnit, where on
 would issue a SINK to the config endpoint to set the configuration.  The REST-Assured static
 config will persist while the remaining tests run.
 
-It's a good idea to issue a DELETE as the
-last step to avoid any configuration state affecting other tests.
+The values may be sparsely populated.  Any that are not present will be set to their REST-Assured
+programmatic default.  The defaults can be obtained issuing a SOURCE request following a DELETE.
+
+Alternatively, if you want each test to be standalone and not depend on a previous test having run first,
+you can place a statement like this in your test code, prior to using any REST-Assured functions:
+
+{java}
+context.sink ("active:RESTAssured/config", context.source ("res:/test/config/ra-config.xml"))
+context.sink ("active:RESTAssured/xml-config", context.source ("res:/test/config/xml-config.xml"))
+{/java}
+
+Where the content of res:/test/config/ra-config.xml might be the following:
+
+{xml}
+<ra-config>
+	<basePath>/test-instance</basePath>
+	<port>9007</port>
+	<xml-content-types>
+		<xml-type>application/vnd.error+xml</xml-type>
+		<xml-type>application/vnd.meta.id+xml</xml-type>
+	</xml-content-types>
+	<test-content-types>
+		<text-type>application/vnd.plain</text-type>
+	</test-content-types>
+</ra-config>
+{/xml}
+
+And res:/test/config/xml-config.xml might be:
+
+{xml}
+<xml-config>
+	<namespaces>
+		<namespace>
+			<prefix>e</prefix>
+			<uri>http://example.com/ns/errors</uri>
+		</namespace>
+		<namespace>
+			<prefix>meta</prefix>
+			<uri>http://example.com/ns/metadata</uri>
+		</namespace>
+		<namespace>
+			<prefix>atom</prefix>
+			<uri>http://www.w3.org/2005/Atom</uri>
+		</namespace>
+	</namespaces>
+</xml-config>
+{/xml}
+
+If you're not interpreting XML in responses, or if your XML is not using namespaces, then the xml-config setting above is unnecessary.
+
+It's a good idea to issue a DELETE as the last step to avoid any configuration state affecting other tests.
+Either as the last XUnit test in a test list, by issuing a DELETE in your test code, possibly in a "finally" block.
+
+{java}
+context.delete ("active:RESTAssured/config")
+context.delete ("active:RESTAssured/xml-config")
+{/java}
 

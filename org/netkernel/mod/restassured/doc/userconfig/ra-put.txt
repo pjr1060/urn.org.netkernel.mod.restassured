@@ -22,7 +22,7 @@ This config also turns off URL encoding, which is on by default.
 	<request>
 		<verb>SINK</verb>
 		<identifier>active:RESTAssured/config</identifier>
-		<argument name="config">
+		<argument name="primary">
 			<literal type="xml">
 				<ra-config>
 					<baseURI>http://example.com</baseURI>
@@ -48,7 +48,7 @@ type names under the appropriate heading in the config.  For example
 	<request>
 		<verb>SINK</verb>
 		<identifier>active:RESTAssured/config</identifier>
-		<argument name="config">
+		<argument name="primary">
 			<literal type="xml">
 				<ra-config>
 					<baseURI>http://example.com</baseURI>

@@ -68,8 +68,12 @@ def boolean nodeBooleanValue (IHDSNode config, String path, boolean defaultValue
 	try { Boolean.parseBoolean (config.getFirstValue (path) as String) } catch (Exception ignored) { defaultValue }
 }
 
-def IHDSNode configHds = context.source ("arg:config", IHDSNode.class)
+def IHDSNode configHds = context.sourcePrimary (IHDSNode.class).getRoot ()
 def IHDSNode config = configHds.getFirstNode ("/ra-config")
+
+if (config == null) {
+	throw new IllegalArgumentException ("Cannot find /ra-config root node")
+}
 
 // Set simple global vars
 RestAssured.baseURI = nodeStringValue (config, "baseURI", RestAssured.DEFAULT_URI)

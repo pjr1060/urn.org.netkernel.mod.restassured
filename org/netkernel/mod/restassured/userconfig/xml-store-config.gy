@@ -16,8 +16,12 @@ import org.netkernel.layer0.representation.IHDSNode
 
 INKFRequestContext context = context
 
-def IHDSNode xmlHds = context.source ("arg:config", IHDSNode.class)
+def IHDSNode xmlHds = context.sourcePrimary (IHDSNode.class)
 def IHDSNode config = xmlHds.getFirstNode ("/xml-config")
+
+if (config == null) {
+	throw new IllegalArgumentException ("Cannot find /xml-config root node")
+}
 
 def pdsId = 'pds:/RESTAssured/xml-config/persist'
 
